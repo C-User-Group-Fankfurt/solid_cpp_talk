@@ -1,6 +1,12 @@
-# Welcome to [Slidev](https://github.com/slidevjs/slidev)!
+# Install NodeJS
 
-To start the slide show:
+```bash
+python3 -m venv ~/python/nodejs
+source ~/python/nodejs/bin/activate
+pip install nodejs-bin nodejs-cmd
+```
+
+# Start the Slide Show
 
 - `npm install`
 - `npm run dev`
