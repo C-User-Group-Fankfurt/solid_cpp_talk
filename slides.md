@@ -83,7 +83,7 @@ public:
 # The Open-Closed Principle for the Actor
 
 - We could try to implement one `Actor` class which supports all use cases (Single Responsibility)
-- We want to be able to use different `Actor` implementations without changing the code of the `DrivingSystem
+- We want to be able to use different `Actor` implementations without changing the code of the `DrivingSystem`
 - Solution in object-oriented software: Provide different implementations via *abstractions*
 
 ---
