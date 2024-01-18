@@ -29,6 +29,8 @@ transition: fade-out
 
 [SOLID on Wikipedia](https://en.wikipedia.org/wiki/SOLID)
 
+<SlideCurrentNo />
+
 ---
 
 # S**O**LID: Open-Closed Principle
@@ -39,6 +41,8 @@ transition: fade-out
 
 
 [^1]: : Meyer, Bertrand (1988). Object-Oriented Software Construction. Prentice Hall.
+
+<SlideCurrentNo />
 
 ---
 
