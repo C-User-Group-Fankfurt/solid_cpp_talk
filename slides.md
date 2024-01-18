@@ -289,11 +289,11 @@ int main(int, char **) {
 
 - Normal driving (e.g. on a highway) requires only a limited functionality of our actors
 - Any emergency situation (e.g. emergency braking into standstill) requires maximum actor capability
-- As safety plays a major role for automated systems, Driving Systems have to handle these situations separately:
+- As safety plays a major role we need to handle these situations separately:
 
    a) normal situations - limitations for actors
 
-   b) special situations - permission for actors to use extended limits (+ increased redundancy of system)
+   b) special situations - permission for actors to use extended limits
 
 
 ---
@@ -371,9 +371,9 @@ class PowerTrain final : public Actor {
 # SOL**I**D: Interface Segregation Principle
 
 - > clients should not be forced to depend on methods that they do not use.[^2]
-- interfaces shall help to decouple, not to introduce artifical coupling
-- split interfaces into (smaller) specific interfaces, to enable clients depending only on interfaces which are relevant for them
-- seperation of concerns is an important special case of the Single-Responsibility Principle 
+- interfaces shall help to decouple, not introduce artifical coupling
+- prefer multiple smaller interfaces to enable clients depending only on interfaces which are relevant for them
+- interface segregation is an important special case of the Single-Responsibility Principle 
 
 
 
@@ -416,7 +416,7 @@ class PowerTrain final : public Actor {
 ---
 
 # Usage for Driving Mode aware Actors
-```cpp {1-4|11-13,16,18,23|all}
+```cpp {1-4|11-13,16,18,23|6-9}
 class Brake final : public DrivingModeAwareActor {
  public:
   explicit Brake(const Acceleration &deceleration_limit) : deceleration_limit(
@@ -425,7 +425,7 @@ class Brake final : public DrivingModeAwareActor {
   void control_vehicle(const Trajectory &) override {
     auto &current_deceleration_limit = get_current_deceleration_limit();
     std::cout << current_deceleration_limit << std::endl;
-  };
+  }
 
   void set_driving_mode(const DrivingMode &driving_mode) override {
     current_driving_mode = driving_mode;
@@ -464,9 +464,14 @@ int main(int, char **) {
 }
 ```
 ---
-layout: two-cols
+layout: center
 ---
 
+# Time for a review...
+
+---
+layout: two-cols
+---
 
 
 <template v-slot:default>
@@ -485,20 +490,15 @@ layout: two-cols
 </template>
 <template v-slot:right>
 
-```cpp {all|15-19}
+```cpp {all|11-12}
 int main(int, char **) {
-  auto sensor = std::make_shared<Sensor>();
-  auto planner = std::make_shared<Planner>();
 
-  auto power_train = std::make_shared<PowerTrain>(
-      Acceleration{MetresPerSquareSecond(13.6)});
-  auto brake = std::make_shared<Brake>(
-      Acceleration{MetresPerSquareSecond{21.0}});
-  auto steering_wheel = std::make_shared<SteeringWheel>(
-      Torque{NewtonMetre{3.0}});
+  ...
 
-  DrivingSystem driving_system(sensor, planner,
-                               {power_train, brake, steering_wheel});
+  DrivingSystem 
+   driving_system(sensor, planner,
+                  {power_train, brake, 
+                   steering_wheel});
 
   const auto driving_mode = DrivingMode::normal;
   brake->set_driving_mode(driving_mode);
@@ -544,7 +544,7 @@ private:
 
 # Usage of Actor Limit Handler
 - `DrivingModeAwareActor` gets obsolete
-```cpp {1-9|5|11-22}
+```cpp {1-9|6|11-22}
 class Brake final : public Actor {
  public:
   Brake() = default;
