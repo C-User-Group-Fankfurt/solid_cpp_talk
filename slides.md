@@ -29,8 +29,6 @@ transition: fade-out
 
 [SOLID on Wikipedia](https://en.wikipedia.org/wiki/SOLID)
 
-<SlideCurrentNo />
-
 ---
 
 # S**O**LID: Open-Closed Principle
@@ -41,8 +39,6 @@ transition: fade-out
 
 
 [^1]: : Meyer, Bertrand (1988). Object-Oriented Software Construction. Prentice Hall.
-
-<SlideCurrentNo />
 
 ---
 
@@ -166,7 +162,7 @@ int main() {
 
 ![Liskov Substition](images/liskov_substitution.png) [^1] 
 
-- If Base is a subclass of Class, then Class should behave like Base
+- If Class is a subclass of Base, then Class should behave like Base
 - > Subtypes must be substitutable for their base types.
 - With inheritance, we should model an **is-a** relation 
 
@@ -179,12 +175,13 @@ int main() {
 
 # Some derived Implications
 
-
 - Preconditions cannot be strengthened in a subtype
 - Postconditions cannot be weakened in a subtype
 - Invariants of the super type must be preserved in a subtype
 
 [^1]
+
+## Image of invariant classes
 
 [^1]: [Breaking Dependencies: The SOLID Principles - Klaus Iglberger - CppCon 2020](https://www.youtube.com/watch?v=Ntraj80qN2k)
 
@@ -195,6 +192,8 @@ int main() {
 - Actors can not generate arbitrary forces
 - The range of forces is depending on the type of vehicle
 - Open-Closed Principle: We want to change the limits from outside
+
+## Image to explain actor limits: Steering Wheel
 
 ---
 
