@@ -52,26 +52,26 @@ int main(int, char **) {
 - introduction of `ActorLimitHandler` (implemented as singleton):
 ```cpp {1,7,10,16|1-5,17-18|all}
 class ActorLimitHandler {
-public:
-    static ActorLimitHandler& get_instance () {
-        static ActorLimitHandler actor_limiter;
-        return actor_limiter;
-    }
-    void set_driving_mode(const DrivingMode &driving_mode) {
-        current_driving_mode = driving_mode;
-    }
-    Acceleration get_current_deceleration_limit() {
-        if (current_driving_mode == DrivingMode::normal)
-            return deceleration_limit;
-        else
-            return unlimited_deceleration{std::numeric_limits<double>::lowest()};
-    }
-    Torque get_current_torque_limit(){...};
-private:
-    ActorLimitHandler() = default;
-    Acceleration deceleration_limit{Acceleration{MetresPerSquareSecond{21.0}}};
-    Torque torque_limit{Torque{NewtonMetre{3.0}}};
-    DrivingMode current_driving_mode{DrivingMode::normal};
+ public:
+  static ActorLimitHandler& get_instance () {
+    static ActorLimitHandler actor_limiter;
+    return actor_limiter;
+  }
+  void set_driving_mode(const DrivingMode &driving_mode) {
+    current_driving_mode = driving_mode;
+  }
+  Acceleration get_current_deceleration_limit() {
+    if (current_driving_mode == DrivingMode::normal)
+      return deceleration_limit;
+    else
+      return std::numeric_limits<double>::lowest();
+  }
+  Torque get_current_torque_limit(){/*...*/return torque_limit;};
+ private:
+  ActorLimitHandler() = default;
+  Acceleration deceleration_limit{Acceleration{MetresPerSquareSecond{21.0}}};
+  Torque torque_limit{Torque{NewtonMetre{3.0}}};
+  DrivingMode current_driving_mode{DrivingMode::normal};
 };
 ```
 
@@ -171,7 +171,7 @@ class SteeringWheel final : public Actor {
 
 ---
 
-# Driving System
+# Dependency Injection Into Actors
 ```cpp {5-6|7-8|9-10|15-23}
 int main(int, char **) {
   ...
@@ -198,3 +198,8 @@ int main(int, char **) {
   driving_system.one_cycle();
 }
 ```
+
+---
+# Dependency Injection Into Actors
+
+![Dependency_uml](images/dependency_inversion_uml.png)
