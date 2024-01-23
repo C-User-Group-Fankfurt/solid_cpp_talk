@@ -8,6 +8,46 @@
 
 ---
 
+# Moving to More Realistic Actors
+
+- Actors can not generate arbitrary forces
+- The range of forces is depending on the type of vehicle
+- Open-Closed Principle: We want to change the limits from outside
+
+<img src="/actor_limits_single.png" alt="Steering Wheel Limit" class="m-10 h-60"/> 
+
+---
+
+# The Naive Approach
+
+```cpp {all|1,4-5|5,10,17,22}
+class Actor {
+ public:
+  virtual ~Actor() = default;
+  virtual void control_vehicle(const Trajectory & /*trajectory*/) = 0;
+  virtual void set_limit(double /*limit*/) = 0;
+};
+
+class PowerTrain final : public Actor {
+...
+  void set_limit(double acceleration_limit_metres_per_second) override {
+...
+double max_acceleration_metres_per_second{0};
+};
+
+class Brake final : public Actor {
+...
+  void set_limit(double deceleration_limit_metres_per_second) override {
+...
+
+class SteeringWheel final : public Actor {
+...
+  void set_limit(double torque_limit_newton_metres) override {
+...
+```
+
+---
+
 # Liskov Substitution Principle
 <br>
 
@@ -43,44 +83,6 @@ image: /liskov_violation.png
 
 ---
 
-# Moving to More Realistic Actors
-
-- Actors can not generate arbitrary forces
-- The range of forces is depending on the type of vehicle
-- Open-Closed Principle: We want to change the limits from outside
-
-<img src="/actor_limits_single.png" alt="Steering Wheel Limit" class="m-10 h-60"/> 
-
----
-
-# The Naive Approach
-
-```cpp {all|3,8,15,20}
-class Actor {
-...
-virtual void set_limit(double /*limit*/) = 0;
-};
-
-class PowerTrain final : public Actor {
-...
-  void set_limit(double acceleration_limit_metres_per_second) override {
-...
-double max_acceleration_metres_per_second{0};
-};
-
-class Brake final : public Actor {
-...
-  void set_limit(double deceleration_limit_metres_per_second) override {
-...
-
-class SteeringWheel final : public Actor {
-...
-  void set_limit(double torque_limit_newton_metres) override {
-...
-```
-
----
-
 # Violation of Liskov Substitution Principle
 
 <img src="/actor_limits.png" alt="Steering Wheel Limit" class="m-10 h-60"/> 
@@ -100,7 +102,7 @@ class Actor {
 ```
 
 And move the limit to the constructor of the base class:
-```cpp
+```cpp {all|3}
 class PowerTrain final : public Actor {
  public:
   explicit PowerTrain(const Acceleration& acceleration_limit) : acceleration_limit(acceleration_limit) {}
@@ -134,15 +136,12 @@ class SteeringWheel final : public Actor {
 
 # Setting the Actual Limits
 
-```cpp{all|4,6,8}
-int main(int, char **) {
+```cpp{all|3-5|7,8}
+int main() {
   ...
-  auto power_train = std::make_shared<PowerTrain>(
-    Acceleration{MetresPerSquareSecond{13.6}});
-  auto brake = std::make_shared<Brake>(
-    Acceleration{MetresPerSquareSecond{21.0}});
-  auto steering_wheel = std::make_shared<SteeringWheel>(
-    Torque{NewtonMetre{3.0}});
+  auto power_train = std::make_shared<PowerTrain>(Acceleration{MetresPerSquareSecond{13.6}});
+  auto brake = std::make_shared<Brake>(Acceleration{MetresPerSquareSecond{21.0}});
+  auto steering_wheel = std::make_shared<SteeringWheel>(Torque{NewtonMetre{3.0}});
 
   DrivingSystem driving_system(sensor, planner,
                                {power_train, brake, steering_wheel});
