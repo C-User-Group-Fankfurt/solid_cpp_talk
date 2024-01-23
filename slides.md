@@ -44,3 +44,8 @@ src: ./pages/interface_segregation.md
 ---
 src: ./pages/dependency_inversion.md
 ---
+
+---
+layout: end
+---
+# Questions?

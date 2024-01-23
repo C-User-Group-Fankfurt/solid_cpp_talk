@@ -171,6 +171,30 @@ class SteeringWheel final : public Actor {
 
 ---
 
+# Required Interfaces implemented by ActorLimitHandler
+```cpp {1|1-4|10,12}
+class ActorLimitHandler {
+public:
+ explicit ActorLimitHandler(const Acceleration &deceleration_limit, const Torque &torque_limit)
+     : deceleration_limit(deceleration_limit), torque_limit(torque_limit){};
+
+  void set_driving_mode(const DrivingMode &driving_mode) {
+    current_driving_mode = driving_mode;
+  }
+
+  Acceleration get_current_deceleration_limit(){...};
+
+  Torque get_current_torque_limit(){...};
+
+private:
+ Acceleration deceleration_limit;
+ Torque torque_limit;
+ DrivingMode current_driving_mode{DrivingMode::normal};
+};
+```
+
+---
+
 # Dependency Injection Into Actors
 ```cpp {5-6|7-8|9-10|15-23}
 int main(int, char **) {
@@ -200,6 +224,5 @@ int main(int, char **) {
 ```
 
 ---
-# Dependency Injection Into Actors
-
+# Dependency Injection Into Actors II
 ![Dependency_uml](images/dependency_inversion_uml.png)

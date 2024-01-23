@@ -60,7 +60,7 @@ class Brake final : public Actor {
 
 # Extension of Existing Powertrain Actor
 
-```cpp {6,10-11|10-15|2-4,12-15}
+```cpp {6,9-10|9-14|2-4,11-13}
 
 class DrivingModeNotSupported : public std::logic_error {
   using std::logic_error::logic_error;
