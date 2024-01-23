@@ -19,15 +19,13 @@ mdc: true
 transition: fade-out
 ---
 
-# The SOLID Principles
+---
+src: ./pages/introduction.md
+---
 
-- **S**: Single-Responsibility Principle
-- **O**: Open-Closed Principle
-- **L**: Liskov Substitution Principle
-- **I**: Interface Segregation Principle
-- **D**: Dependency Inversion Principle
-
-[SOLID on Wikipedia](https://en.wikipedia.org/wiki/SOLID)
+---
+src: ./pages/single_responsibility.md
+---
 
 ---
 src: ./pages/open_closed.md
