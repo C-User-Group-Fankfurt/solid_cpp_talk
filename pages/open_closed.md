@@ -32,37 +32,38 @@
 
 ---
 
-# The Actor in our Current Implementation
+# The Actors in our Current Implementation
 
-```cpp {all|3-5,12,14-16,20}
+```cpp {all|3-6,15,17,21}
 class Actors {
  public:
-  void control_power_train(const Trajectory & /*trajectory*/) {}
-  void control_brake(const Trajectory & /*trajectory*/) {}
-  void control_steering_wheel(const Trajectory & /*trajectory*/) {}
+  void control_vehicle(const Trajectory & trajectory) {
+    control_power_train(trajectory);
+    control_brake(trajectory);
+    control_steering_wheel(trajectory);
+  }
+  ...
 };
 
 class DrivingSystem {
 public:  
   DrivingSystem(std::shared_ptr<Sensor> sensor,
                 std::shared_ptr<Planner> planner,
-                std::shared_ptr<Actors> actor) :
+                std::shared_ptr<Actors> actors) :
     ...
-    actor->control_brake(vehicle_trajectory);
-    actor->control_power_train(vehicle_trajectory);
-    actor->control_steering_wheel(vehicle_trajectory);
+    actors->control_vehicle(vehicle_trajectory);
   }
  private:
   ...
-  std::shared_ptr<Actors> actor;
+  std::shared_ptr<Actors> actors;
 };
 ```
 ---
 
-# The Open-Closed Principle for the Actor
+# The Open-Closed Principle for the Actors
 
-- We could try to implement one `Actor` class which supports all use cases (Single Responsibility)
-- We want to be able to use different `Actor` implementations without changing the code of the `DrivingSystem`
+- We could try to implement one `Actors` class which supports all use cases (Single Responsibility)
+- We want to be able to use different `Actors` implementations without changing the code of the `DrivingSystem`
 - Solution in object-oriented software: Provide different implementations via *abstractions*
 
 ---
