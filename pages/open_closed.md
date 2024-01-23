@@ -50,7 +50,7 @@ public:
                 std::shared_ptr<Actors> actors) :
     ...
     actors->control_vehicle(vehicle_trajectory);
-  }
+ ...
  private:
   ...
   std::shared_ptr<Actors> actors;
@@ -60,7 +60,7 @@ public:
 
 # The Open-Closed Principle for the Actors
 
-- We could try to implement one `Actors` class which supports all use cases (Single Responsibility)
+- We could try to implement one `Actors` class which supports all use cases: 🌩Single Responsibility
 - We want to be able to use different `Actors` implementations without changing the code of the `DrivingSystem`
 - Solution in object-oriented software: Provide different implementations via *abstractions*
 
@@ -72,20 +72,20 @@ public:
 class Actor {
  public:
   virtual ~Actor() = default;
-  virtual void control_vehicle(const Trajectory &) = 0;
+  virtual void control_vehicle(const Trajectory & /*trajectory*/) = 0;
 };
 
-class PowerTrain : public Actor {
+class PowerTrain final : public Actor {
  public:
   void control_vehicle(const Trajectory &) override {};
 };
 
-class Brake : public Actor {
+class Brake final : public Actor {
  public:
   void control_vehicle(const Trajectory &) override {};
 };
 
-class SteeringWheel : public Actor {
+class SteeringWheel final : public Actor {
  public:
   void control_vehicle(const Trajectory &) override {};
 };
@@ -95,7 +95,7 @@ class SteeringWheel : public Actor {
 
 # Using the Abstract Actor in the Driving System
 
-```cpp
+```cpp {all|3,7,17|9,11-13}
 class DrivingSystem {
  public:
   using Actors = std::vector<std::shared_ptr<Actor>>;

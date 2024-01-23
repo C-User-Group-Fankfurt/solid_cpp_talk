@@ -11,28 +11,33 @@
 # Liskov Substitution Principle
 <br>
 
-<img src="/liskov_substitution.png" alt="Liskov Substition"/>
+<img src="/liskov_substitution.png" alt="Liskov Substition"/> [^1]
 
-- If Class is a subclass of Base, then Class should behave like Base
+<br>
+
+- If Class is a subtype of Base, then Class should behave like Base
 - > Subtypes must be substitutable for their base types.
 - With inheritance, we should model an **is-a** relation 
 
 <br>
 <br>
 
-[^1]: : Liskov, Barbara; Wing, Jeannette (1994-11-01). A behavioral notion of subtyping. ACM Transactions on Programming Languages and Systems.
+[^1]: Liskov, Barbara; Wing, Jeannette (1994-11-01). A behavioral notion of subtyping. ACM Transactions on Programming Languages and Systems.
 
+---
+layout: image-right
+image: /liskov_violation.png
 ---
 
 # Some derived Implications
 
 - Preconditions cannot be strengthened in a subtype
 - Postconditions cannot be weakened in a subtype
-- Invariants of the super type must be preserved in a subtype
-
+- Invariants of the base type must be preserved in a subtype
 [^1]
 
-## Image of invariant classes
+<br>
+<br>
 
 [^1]: [Breaking Dependencies: The SOLID Principles - Klaus Iglberger - CppCon 2020](https://www.youtube.com/watch?v=Ntraj80qN2k)
 
@@ -44,7 +49,7 @@
 - The range of forces is depending on the type of vehicle
 - Open-Closed Principle: We want to change the limits from outside
 
-## Image to explain actor limits: Steering Wheel
+<img src="/actor_limits_single.png" alt="Steering Wheel Limit" class="m-10 h-60"/> 
 
 ---
 
@@ -73,11 +78,19 @@ class SteeringWheel final : public Actor {
   void set_limit(double torque_limit_newton_metres) override {
 ...
 ```
+
+---
+
+# Violation of Liskov Substitution Principle
+
+<img src="/actor_limits.png" alt="Steering Wheel Limit" class="m-10 h-60"/> 
+
 ---
 
 # Following the Liskov Substitution Principle
 
 Let's revert our mistake from before:
+
 ```cpp
 class Actor {
  public:
