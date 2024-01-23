@@ -1,5 +1,3 @@
----
-
 # The SOLID Principles
 
 - **S**: Single-Responsibility Principle

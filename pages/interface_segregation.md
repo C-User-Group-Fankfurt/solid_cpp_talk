@@ -1,5 +1,3 @@
----
-
 # Safety Aspects of a Real Driving System
 
 - Normal driving (e.g. on a highway) requires only a limited functionality of our actors

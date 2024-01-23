@@ -1,5 +1,3 @@
----
-
 # First Meeting
 
 - New C++ User Group
