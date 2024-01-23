@@ -13,12 +13,12 @@
    
 # Welcome @Conti
 
-![bad_joke](images/goodyears_joke_even_smaller.jpg)
+![bad_joke](/goodyears_joke_even_smaller.jpg)
 
 ---
 
 # Who's that?
-![uncle_bob](images/Robert_C._Martin_even_smaller.jpg)[^1]
+![uncle_bob](/Robert_C._Martin_even_smaller.jpg)[^1]
 
 - Do you know 'Uncle Bob'?
 - Do you know Robert C. Martin?

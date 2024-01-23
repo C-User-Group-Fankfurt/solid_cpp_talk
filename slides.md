@@ -1,6 +1,6 @@
 ---
 theme: default
-background: images/m_-f-o6-aW7t5XRo-unsplash.jpg
+background: /m_-f-o6-aW7t5XRo-unsplash.jpg
 class: text-center
 highlighter: shikiji
 lineNumbers: true

@@ -225,4 +225,4 @@ int main(int, char **) {
 
 ---
 # Dependency Injection Into Actors II
-![Dependency_uml](images/dependency_inversion_uml.png)
+![Dependency_uml](/dependency_inversion_uml.png)
