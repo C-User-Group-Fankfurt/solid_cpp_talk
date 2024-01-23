@@ -11,7 +11,7 @@
 # Liskov Substitution Principle
 <br>
 
-![Liskov Substition](/liskov_substitution.png) [^1] 
+<img src="/liskov_substitution.png" alt="Liskov Substition"/>
 
 - If Class is a subclass of Base, then Class should behave like Base
 - > Subtypes must be substitutable for their base types.
