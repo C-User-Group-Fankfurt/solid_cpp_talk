@@ -1,8 +1,13 @@
+# C++ User Group Frankfurt
+
 - Let's have this User Group meeting on a regular basis
 - Call for Talks!
+- Next meeting in April 2024
 
 <br>
 <br>
+
+---
 
 # Acknowledgements
 - [Angelos Plastropoulos. SOLID Principles in modern C++. coding adventures](http://codingadventures.org/2021/11/27/solid-principles-using-modern-c/)
