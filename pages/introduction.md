@@ -1,13 +1,15 @@
 # First Meeting
 
 - New C++ User Group
-    - New York
-    - Buenos Aires
-    - Singapore
-    - Sydney
-    - Berlin
-    - ...
-    - **Frankfurt**  
+  - New York
+  - Buenos Aires
+  - Singapore
+  - Sydney
+  - Berlin
+  - ...
+  - **Frankfurt**  
+- More meetups coming soon
+  - Join us! 
 
 ---
    

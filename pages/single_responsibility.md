@@ -59,7 +59,7 @@ class Planner {
 
 # Code Example - A Driving System
 
-```cpp {all|7,9,17}
+```cpp
 namespace control_actuators {
 void control_power_train(const ControlSignals &, PowerTrainConnection &) {}
 void control_brake(const ControlSignals &, BrakeConnection &) {}
@@ -124,4 +124,91 @@ int main() {
 
 # You had only one Job!
 
-- ...
+```cpp {7,9,17}
+namespace control_actuators {
+void control_power_train(const ControlSignals &, PowerTrainConnection &) {}
+void control_brake(const ControlSignals &, BrakeConnection &) {}
+void control_steering_wheel(const ControlSignals &, SteeringConnection &) {}
+}
+
+class Trajectory {
+ public:
+  void control_vehicle() {
+    using namespace control_actuators;
+    control_power_train(internals, power_train_connection);
+    control_brake(internals, brake_connection);
+    control_steering_wheel(internals, steering_wheel_connection);
+  };
+ private:
+  using TrajectoryData = int;
+  TrajectoryData internals{};
+
+  control_actuators::PowerTrainConnection power_train_connection{};
+  control_actuators::BrakeConnection brake_connection{};
+  control_actuators::SteeringConnection steering_wheel_connection{};
+};
+```
+---
+
+# Let's fix this...
+
+```cpp
+struct Trajectory {
+  using TrajectoryData = int;
+  TrajectoryData internals{};
+};
+
+class Actors {
+ public:
+  void control_vehicle(const Trajectory & trajectory) {
+    control_power_train(trajectory);
+    control_brake(trajectory);
+    control_steering_wheel(trajectory);
+  }
+ private:
+  void control_power_train(const Trajectory & /*trajectory*/) {}
+  void control_brake(const Trajectory & /*trajectory*/) {}
+  void control_steering_wheel(const Trajectory & /*trajectory*/) {}
+  // ...
+};
+```
+---
+
+# Let's fix this...
+
+```cpp {5,8,13,19}
+class DrivingSystem {
+ public:
+  DrivingSystem(std::shared_ptr<Sensor> sensor,
+                std::shared_ptr<Planner> planner,
+                std::shared_ptr<Actors> actors) :
+      sensor(std::move(sensor)),
+      planner(std::move(planner)),
+      actors(std::move(actors)) {};
+
+  void one_cycle() {
+    auto environment_model = sensor->model_environment();
+    auto vehicle_trajectory = planner->plan_vehicle_behavior(environment_model);
+    actors->control_vehicle(vehicle_trajectory);
+  }
+
+ private:
+  std::shared_ptr<Sensor> sensor;
+  std::shared_ptr<Planner> planner;
+  std::shared_ptr<Actors> actors;
+};
+```
+---
+
+# Let's fix this...
+
+```cpp {4,6}
+int main() {
+  auto sensor = std::make_shared<Sensor>();
+  auto planner = std::make_shared<Planner>();
+  auto actors = std::make_shared<Actors>();
+
+  DrivingSystem driving_system(sensor, planner, actors);
+  driving_system.one_cycle();
+}
+```
