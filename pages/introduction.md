@@ -18,6 +18,12 @@
 <img src="/goodyears_joke_even_smaller.jpg" alt="bad_joke"/>
 
 ---
+   
+# Welcome @Conti
+
+<img src="/camera.png" alt="bad_joke" class="h-100"/>
+
+---
 
 # Who's that?
 
