@@ -65,23 +65,6 @@ class SteeringWheel final : public Actor {
 [^1]: Liskov, Barbara; Wing, Jeannette (1994-11-01). A behavioral notion of subtyping. ACM Transactions on Programming Languages and Systems.
 
 ---
-layout: image-right
-image: /liskov_violation.png
----
-
-# Some derived Implications
-
-- Preconditions cannot be strengthened in a subtype
-- Postconditions cannot be weakened in a subtype
-- Invariants of the base type must be preserved in a subtype
-[^1]
-
-<br>
-<br>
-
-[^1]: [Breaking Dependencies: The SOLID Principles - Klaus Iglberger - CppCon 2020](https://www.youtube.com/watch?v=Ntraj80qN2k)
-
----
 
 # Violation of Liskov Substitution Principle
 
